@@ -1,0 +1,8 @@
+{
+    "name": "jessieBot",
+    "version": "1.0",
+    "description": "jessieBot is Jessie's true form.",
+    "main": "bot.js",
+    "author": "Emil Smith",
+    "dependencies": {}
+}
