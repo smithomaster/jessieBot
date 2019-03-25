@@ -1,9 +1,6 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
-const csv = require('csv-parser');
-const fs = require ('fs');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -17,21 +14,10 @@ var bot = new Discord.Client({
    autorun: true
 });
 
-fs.createReadStream('data.csv')
-    .pipe(csv())
-    .on('data', (row) => {
-        console.log(row);
-    })
-    .on('end', () => {
-        console.log('csv file successfully processed');
-    })
+var crystalMessages = [];
+var jessieMessages = [];
+var sophiaMessages = [];
 
-const csvWriter = createCsvWriter({
-    path: 'data.csv',
-    header: [
-        {id: 'msg', title: 'Message'},
-    ]
-})
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -40,9 +26,49 @@ bot.on('ready', function (evt) {
 bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
-    if (user == 'HelloCookieJar') {
-        csvWriter
-            .writerRecords(data)
-            .then(()=> console.log('writtern succesfully'));
-     }
+    if (user == 'Crystal' && message != '%crystal') {
+        console.log('crystal: ');
+        console.log(message);
+        crystalMessages.push(message);
+
+    }
+     if (message.substring(0, 8) == '%crystal') {
+         var min=1;
+         var max=crystalMessages.length;
+         var random = Math.floor(Math.random() * (+max - +min)) + +min;
+           bot.sendMessage({
+               to: channelID,
+               message: crystalMessages[random]
+           });
+    }
+    if (user == 'LurkingCookieJar' && message.substring(0, 1) != '%jessie') {
+        console.log('jessie: ');
+        console.log(message);
+        jessieMessages.push(message);
+
+    }
+     if (message.substring(0, 7) == '%jessie') {
+         var min=1;
+         var max=jessieMessages.length;
+         var random = Math.floor(Math.random() * (+max - +min)) + +min;
+           bot.sendMessage({
+               to: channelID,
+               message: jessieMessages[random]
+           });
+    }
+    if (user == '𝙨𝙤𝙥𝙝𝙞𝙖' && message != '%sophia') {
+        console.log('sophia: ');
+        console.log(message);
+        sophiaMessages.push(message);
+
+    }
+     if (message.substring(0, 8) == '%sophia') {
+         var min=1;
+         var max=sophiaMessages.length;
+         var random = Math.floor(Math.random() * (+max - +min)) + +min;
+           bot.sendMessage({
+               to: channelID,
+               message: sophiaMessages[random]
+           });
+    }
 });
