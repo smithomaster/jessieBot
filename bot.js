@@ -20,6 +20,7 @@ var sophiaMessages = [' '];
 var gabbyMessages = [' '];
 var luinMessages = [' '];
 var zhuiMessages = [' '];
+var talMessages = [' '];
 
 bot.on('ready', function (evt) {
 logger.info('Connected');
@@ -41,6 +42,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         bot.sendMessage({
             to: channelID,
             message: crystalMessages[random]
+        });
+    }
+
+    if (user == 'dondet' && message != '%tal') {
+        console.log('tal: ');
+        console.log(message);
+        talMessages.push(message);
+    }
+
+    if (message.substring(0, 8) == '%tal') {
+        var min=1;
+        var max=talMessages.length;
+        var random = Math.floor(Math.random() * (+max - +min)) + +min;
+
+        bot.sendMessage({
+            to: channelID,
+            message: talMessages[random]
         });
     }
 
@@ -167,6 +185,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     if (message.substring(0, 14) == '%markovJessie') {
         MarkovChain.train(jessieMessages, true);
+
+        bot.sendMessage({
+            to: channelID,
+            message: MarkovChain.generate(6)
+        });
+    }
+
+    if (message.substring(0, 14) == '%markovSophia') {
+        MarkovChain.train(sophiaMessages, true);
+
+        bot.sendMessage({
+            to: channelID,
+            message: MarkovChain.generate(6)
+        });
+    }
+
+    if (message.substring(0, 14) == '%markovTal') {
+        MarkovChain.train(talMessages, true);
 
         bot.sendMessage({
             to: channelID,
