@@ -2,18 +2,21 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var fs = require('fs');
-var MarkovChain = require('markov-chain-nlg');
+var markovGenerator = require('markov-generator');
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
-colorize: true
+    colorize: true
 });
 logger.level = 'debug';
+
 // Initialize Discord Bot
 var bot = new Discord.Client({
-token: auth.token,
-autorun: true
+    token: auth.token,
+    autorun: true
 });
+
 var crystalMessages = [' '];
 var jessieMessages = [' '];
 var sophiaMessages = [' '];
@@ -21,13 +24,18 @@ var gabbyMessages = [' '];
 var luinMessages = [' '];
 var zhuiMessages = [' '];
 var talMessages = [' '];
+var allMessages = [' '];
 
 bot.on('ready', function (evt) {
-logger.info('Connected');
-logger.info('Logged in as: ');
-logger.info(bot.username + ' - (' + bot.id + ')');
+    logger.info('Connected');
+    logger.info('Logged in as: ');
+    logger.info(bot.username + ' - (' + bot.id + ')');
 });
+
 bot.on('message', function (user, userID, channelID, message, evt) {
+    if (message.substring(0,1) != '%') {
+        allMessages.push(message);
+    }
     if (user == 'Crystal' && message != '%crystal') {
         console.log('crystal: ');
         console.log(message);
@@ -147,66 +155,100 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
-    if (message.substring(0, 14) == '%markovCrystal') {
-        MarkovChain.train(crystalMessages, true);
+    if (message.substring(0, 13) == '%markovServer') {
+        var markov = new MarkovGen({
+            input: allMessages,
+            minLength: 8
+        });
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
+        });
+
+    }
+
+    if (message.substring(0, 14) == '%markovCrystal') {
+        var markov = new MarkovGen({
+            input: crystalMessages,
+            minLength: 7
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 11) == '%markovLuin') {
-        MarkovChain.train(luinMessages, true);
+        var markov = new MarkovGen({
+            input: luinMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 14) == '%markovGabby') {
-        MarkovChain.train(gabbyMessages, true);
+        var markov = new MarkovGen({
+            input: gabbyMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 14) == '%markovZhui') {
-        MarkovChain.train(zhuiMessages, true);
+        var markov = new MarkovGen({
+            input: zhuiMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 14) == '%markovJessie') {
-        MarkovChain.train(jessieMessages, true);
+        var markov = new MarkovGen({
+            input: jessieMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 14) == '%markovSophia') {
-        MarkovChain.train(sophiaMessages, true);
+        var markov = new MarkovGen({
+            input: sophiaMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 
     if (message.substring(0, 14) == '%markovTal') {
-        MarkovChain.train(talMessages, true);
+        var markov = new MarkovGen({
+            input: talMessages,
+            minLength: 7
+        })
 
         bot.sendMessage({
             to: channelID,
-            message: MarkovChain.generate(6)
+            message: markov.makeChain
         });
     }
 });
