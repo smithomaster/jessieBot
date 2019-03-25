@@ -17,6 +17,7 @@ var bot = new Discord.Client({
 var crystalMessages = [];
 var jessieMessages = [];
 var sophiaMessages = [];
+var gabbyMessages = [];
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
@@ -41,7 +42,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                message: crystalMessages[random]
            });
     }
-    if (user == 'LurkingCookieJar' && message.substring(0, 1) != '%jessie') {
+    if (user == 'HelloCookieJar' && message.substring(0, 1) != '%jessie') {
         console.log('jessie: ');
         console.log(message);
         jessieMessages.push(message);
@@ -69,6 +70,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
            bot.sendMessage({
                to: channelID,
                message: sophiaMessages[random]
+           });
+    }
+    if (user == 'owobble' && message != '%gabby') {
+        console.log('gabby: ');
+        console.log(message);
+        gabbyMessages.push(message);
+
+    }
+     if (message.substring(0, 8) == '%gabby') {
+         var min=1;
+         var max=gabbyMessages.length;
+         var random = Math.floor(Math.random() * (+max - +min)) + +min;
+           bot.sendMessage({
+               to: channelID,
+               message: gabbyMessages[random]
            });
     }
 });
