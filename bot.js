@@ -2,7 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var fs = require('fs');
-var MarkovGen = require('markov-generator');
+var MarkovChain = require('markov-chain-nlg');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -16,6 +16,19 @@ var bot = new Discord.Client({
     token: auth.token,
     autorun: true
 });
+
+const options = {
+    maxTries: 20,
+}
+
+const markovCrystal = require('markov-chain-nlg');
+const markovJessie = require('markov-chain-nlg');
+const markovSophia = require('markov-chain-nlg');
+const markovGabby = require('markov-chain-nlg');
+const markovLuin = require('markov-chain-nlg');
+const markovZhui = require('markov-chain-nlg');
+const markovTal = require('markov-chain-nlg');
+const markovAll = require('markov-chain-nlg');
 
 var crystalMessages = [' '];
 var jessieMessages = [' '];
@@ -53,14 +66,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 14) == '%markovCrystal') {
-        var markovCrystal = new MarkovGen({
-            input: crystalMessages,
-            minLength: 2
-        })
+        const markovCrystal = require('markov-chain-nlg');
+        markovCrystal.train(crystalMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovCrystal.makeChain
+            message: markovCrystal.generate (7)
         });
     }
 
@@ -88,14 +99,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 10) == '%markovTal') {
-        var markovTal = new MarkovGen({
-            input: talMessages,
-            minLength: 2
-        })
+        const markovTal = require('markov-chain-nlg');
+        markovTal.train(talMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovTal.makeChain
+            message: markovTal.generate (7)
         });
     }
 
@@ -123,14 +132,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovZhui') {
-        var markovZhui = new MarkovGen({
-            input: zhuiMessages,
-            minLength: 2
-        })
+        const markovZhui = require('markov-chain-nlg');
+        markovZhui.train(zhuiMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovZhui.makeChain
+            message: markovZhui.generate (7)
         });
     }
 
@@ -158,14 +165,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovJessie') {
-        var markovJessie = new MarkovGen({
-            input: jessieMessages,
-            minLength: 2
-        })
+        const markovJessie = require('markov-chain-nlg');
+        markovJessie.train(jessieMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovJessie.makeChain
+            message: markovJessie.generate (7)
         });
     }
 
@@ -193,14 +198,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovSophia') {
-        var markovSophia = new MarkovGen({
-            input: sophiaMessages,
-            minLength: 2
-        })
+        const markovSophia = require('markov-chain-nlg');
+        markovSophia.train(sophiaMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovSophia.makeChain
+            message: markovSophia.generate (7)
         });
     }
 
@@ -228,14 +231,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 12) == '%markovGabby') {
-        var markovGabby = new MarkovGen({
-            input: gabbyMessages,
-            minLength: 2
-        })
+        const markovGabby = require('markov-chain-nlg');
+        markovGabby.train(gabbyMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovGabbu.makeChain
+            message: markovGabby.generate (7)
         });
     }
 
@@ -251,7 +252,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         luinMessages.push(message);
     }
 
-    if (message.substring(0, 8) == '%luin') {
+    if (message.substring(0, 5) == '%luin') {
         var min=1;
         var max=luinMessages.length;
         var random = Math.floor(Math.random() * (+max - +min)) + +min;
@@ -263,14 +264,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovLuin') {
-        var markovLuin = new MarkovGen({
-            input: luinMessages,
-            minLength: 2
-        })
+        const markovLuin = require('markov-chain-nlg');
+        markovLuin.train(luinMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovLuin.makeChain
+            message: markovLuin.generate (7)
         });
     }
 
@@ -282,14 +281,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovServer') {
-        var markovServer = new MarkovGen({
-            input: allMessages,
-            minLength: 2
-        });
+        const markovAll = require('markov-chain-nlg');
+        markovAll.train(allMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: markovServer.makeChain
+            message: markovAll.generate (7)
         });
+    }
+
+    if (message.substring(0, 22) == '%superSecretStopServer') {
+        process.exit();
     }
 });
