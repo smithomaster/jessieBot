@@ -2,7 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var fs = require('fs');
-const Markov = require('markov-strings').default
+var MarkovChain = require('markov-chain-nlg');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -19,12 +19,17 @@ var bot = new Discord.Client({
 
 const options = {
     maxTries: 20,
-    filter (result) => {
-        return
-            return.string.split(' ').length >=4 &&
-            result.string.endsWith('.')
-    }
 }
+
+const markovCrystal = require('markov-chain-nlg');
+const markovJessie = require('markov-chain-nlg');
+const markovSophia = require('markov-chain-nlg');
+const markovGabby = require('markov-chain-nlg');
+const markovLuin = require('markov-chain-nlg');
+const markovZhui = require('markov-chain-nlg');
+const markovTal = require('markov-chain-nlg');
+const markovAll = require('markov-chain-nlg');
+
 var crystalMessages = [' '];
 var jessieMessages = [' '];
 var sophiaMessages = [' '];
@@ -61,12 +66,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 14) == '%markovCrystal') {
-        const crystalMarkov = new Markov(crystalMessages, { stateSize: 2 })
-        crystalMarkov.buildCorpus()
+        markovCrystal.train(crystalMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: crystalMarkov.generate(options)
+            message: markovCrystal.generate (7)
         });
     }
 
@@ -94,12 +98,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 10) == '%markovTal') {
-        const talMarkov = new Markov(talMessages, { stateSize: 2 })
-        talMarkov.buildCorpus()
+        markovTal.train(talMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: talMarkov.generate(options)
+            message: markovTal.generate (7)
         });
     }
 
@@ -127,12 +130,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovZhui') {
-        const zhuiMarkov = new Markov(zhuiMessages, { stateSize: 2 })
-        zhuiMarkov.buildCorpus()
+        markovZhui.train(zhuiMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: zhuiMarkov.generate(options)
+            message: markovZhui.generate (7)
         });
     }
 
@@ -160,12 +162,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovJessie') {
-        const jessieMarkov = new Markov(jessieMessages, { stateSize: 2 })
-        jessieMarkov.buildCorpus()
+        markovJessie.train(jessieMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: jessieMarkov.generate(options)
+            message: markovJessie.generate (7)
         });
     }
 
@@ -193,12 +194,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovSophia') {
-        const sophiaMarkov = new Markov(sophiaMessages, { stateSize: 2 })
-        sophiaMarkov.buildCorpus()
+        markovSophia.train(sophiaMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: sophiaMarkov.generate(options)
+            message: markovSophia.generate (7)
         });
     }
 
@@ -226,12 +226,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 12) == '%markovGabby') {
-        const gabbyMarkov = new Markov(gabbyMessages, { stateSize: 2 })
-        gabbyMarkov.buildCorpus()
+        markovGabby.train(gabbyMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: gabbyMarkov.generate(options)
+            message: markovGabby.generate (7)
         });
     }
 
@@ -259,12 +258,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovLuin') {
-        const luinMarkov = new Markov(luinMessages, { stateSize: 2 })
-        luinMarkov.buildCorpus()
+        markovLuin.train(luinMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: luinMarkov.generate(options)
+            message: markovLuin.generate (7)
         });
     }
 
@@ -276,12 +274,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovServer') {
-        const serverMarkov = new Markov(allMessages, { stateSize: 2 })
-        serverMarkov.buildCorpus()
+        markovAll.train(allMessages, true);
 
         bot.sendMessage({
             to: channelID,
-            message: serverMarkov.generate(options)
+            message: markovAll.generate (7)
         });
     }
 });
