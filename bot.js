@@ -66,6 +66,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 14) == '%markovCrystal') {
+        const markovCrystal = require('markov-chain-nlg');
         markovCrystal.train(crystalMessages, true);
 
         bot.sendMessage({
@@ -98,6 +99,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 10) == '%markovTal') {
+        const markovTal = require('markov-chain-nlg');
         markovTal.train(talMessages, true);
 
         bot.sendMessage({
@@ -130,6 +132,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovZhui') {
+        const markovZhui = require('markov-chain-nlg');
         markovZhui.train(zhuiMessages, true);
 
         bot.sendMessage({
@@ -162,6 +165,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovJessie') {
+        const markovJessie = require('markov-chain-nlg');
         markovJessie.train(jessieMessages, true);
 
         bot.sendMessage({
@@ -194,6 +198,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovSophia') {
+        const markovSophia = require('markov-chain-nlg');
         markovSophia.train(sophiaMessages, true);
 
         bot.sendMessage({
@@ -226,6 +231,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 12) == '%markovGabby') {
+        const markovGabby = require('markov-chain-nlg');
         markovGabby.train(gabbyMessages, true);
 
         bot.sendMessage({
@@ -246,7 +252,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         luinMessages.push(message);
     }
 
-    if (message.substring(0, 8) == '%luin') {
+    if (message.substring(0, 5) == '%luin') {
         var min=1;
         var max=luinMessages.length;
         var random = Math.floor(Math.random() * (+max - +min)) + +min;
@@ -258,6 +264,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 11) == '%markovLuin') {
+        const markovLuin = require('markov-chain-nlg');
         markovLuin.train(luinMessages, true);
 
         bot.sendMessage({
@@ -274,11 +281,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 13) == '%markovServer') {
+        const markovAll = require('markov-chain-nlg');
         markovAll.train(allMessages, true);
 
         bot.sendMessage({
             to: channelID,
             message: markovAll.generate (7)
         });
+    }
+
+    if (message.substring(0, 22) == '%superSecretStopServer') {
+        process.exit();
     }
 });
