@@ -29,7 +29,7 @@ var allMessages = [' '];
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
+    logger.info(bot.username);
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
@@ -37,7 +37,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         allMessages.push(message);
     }
     if (user == 'Crystal' && message != '%crystal') {
-        console.log('crystal: ');
         console.log(message);
         crystalMessages.push(message);
     }
@@ -53,8 +52,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 14) == '%markovCrystal') {
+        var markovCrystal = new MarkovGen({
+            input: crystalMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovCrystal.makeChain
+        });
+    }
+
+    if (message.substring(0, 12) == '%crystalSpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: crystalMessages
+        });
+    }
+
     if (user == 'dondet' && message != '%tal') {
-        console.log('tal: ');
         console.log(message);
         talMessages.push(message);
     }
@@ -70,8 +87,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 10) == '%markovTal') {
+        var markovTal = new MarkovGen({
+            input: talMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovTal.makeChain
+        });
+    }
+
+    if (message.substring(0, 8) == '%talSpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: talMessages
+        });
+    }
+
     if (user == 'zhui' && message != '%zhui') {
-        console.log('zhui: ');
         console.log(message);
         zhuiMessages.push(message);
     }
@@ -87,8 +122,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 11) == '%markovZhui') {
+        var markovZhui = new MarkovGen({
+            input: zhuiMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovZhui.makeChain
+        });
+    }
+
+    if (message.substring(0, 9) == '%zhuiSpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: zhuiMessages
+        });
+    }
+
     if (user == 'HelloCookieJar' && message.substring(0, 1) != '%jessie') {
-        console.log('jessie: ');
         console.log(message);
         jessieMessages.push(message);
     }
@@ -104,8 +157,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 13) == '%markovJessie') {
+        var markovJessie = new MarkovGen({
+            input: jessieMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovJessie.makeChain
+        });
+    }
+
+    if (message.substring(0, 11) == '%jessieSpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: jessieMessages
+        });
+    }
+
     if (user == '𝙨𝙤𝙥𝙝𝙞𝙖' && message != '%sophia') {
-        console.log('sophia: ');
         console.log(message);
         sophiaMessages.push(message);
     }
@@ -121,8 +192,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 13) == '%markovSophia') {
+        var markovSophia = new MarkovGen({
+            input: sophiaMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovSophia.makeChain
+        });
+    }
+
+    if (message.substring(0, 11) == '%sophiaSpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: sophiaMessages
+        });
+    }
+
     if (user == 'owobble' && message != '%gabby') {
-        console.log('gabby: ');
         console.log(message);
         gabbyMessages.push(message);
     }
@@ -138,8 +227,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
+    if (message.substring(0, 12) == '%markovGabby') {
+        var markovGabby = new MarkovGen({
+            input: gabbyMessages,
+            minLength: 2
+        })
+
+        bot.sendMessage({
+            to: channelID,
+            message: markovGabbu.makeChain
+        });
+    }
+
+    if (message.substring(0, 10) == '%gabbySpew') {
+        bot.sendMessage({
+            to: channelID,
+            message: gabbyMessages
+        });
+    }
+
     if (user == 'LuiTheFly' && message != '%luin') {
-        console.log('luin: ');
         console.log(message);
         luinMessages.push(message);
     }
@@ -155,35 +262,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
-    if (message.substring(0, 13) == '%markovServer') {
-        var markovServer = new MarkovGen({
-            input: allMessages,
-            minLength: 8
-        });
-
-        bot.sendMessage({
-            to: channelID,
-            message: markovServer.makeChain
-        });
-
-    }
-
-    if (message.substring(0, 14) == '%markovCrystal') {
-        var markovCrystal = new MarkovGen({
-            input: crystalMessages,
-            minLength: 7
-        })
-
-        bot.sendMessage({
-            to: channelID,
-            message: markovCrystal.makeChain
-        });
-    }
-
     if (message.substring(0, 11) == '%markovLuin') {
         var markovLuin = new MarkovGen({
             input: luinMessages,
-            minLength: 7
+            minLength: 2
         })
 
         bot.sendMessage({
@@ -192,63 +274,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
 
-    if (message.substring(0, 14) == '%markovGabby') {
-        var markovGabby = new MarkovGen({
-            input: gabbyMessages,
-            minLength: 7
-        })
-
+    if (message.substring(0, 9) == '%luinSpew') {
         bot.sendMessage({
             to: channelID,
-            message: markovGabbu.makeChain
+            message: luinMessages
         });
     }
 
-    if (message.substring(0, 14) == '%markovZhui') {
-        var markovZhui = new MarkovGen({
-            input: zhuiMessages,
-            minLength: 7
-        })
-
-        bot.sendMessage({
-            to: channelID,
-            message: markovZhui.makeChain
+    if (message.substring(0, 13) == '%markovServer') {
+        var markovServer = new MarkovGen({
+            input: allMessages,
+            minLength: 2
         });
-    }
-
-    if (message.substring(0, 14) == '%markovJessie') {
-        var markovJessie = new MarkovGen({
-            input: jessieMessages,
-            minLength: 7
-        })
 
         bot.sendMessage({
             to: channelID,
-            message: markovJessie.makeChain
-        });
-    }
-
-    if (message.substring(0, 14) == '%markovSophia') {
-        var markovSophia = new MarkovGen({
-            input: sophiaMessages,
-            minLength: 7
-        })
-
-        bot.sendMessage({
-            to: channelID,
-            message: markovSophia.makeChain
-        });
-    }
-
-    if (message.substring(0, 14) == '%markovTal') {
-        var markovTal = new MarkovGen({
-            input: talMessages,
-            minLength: 7
-        })
-
-        bot.sendMessage({
-            to: channelID,
-            message: markovTal.makeChain
+            message: markovServer.makeChain
         });
     }
 });
