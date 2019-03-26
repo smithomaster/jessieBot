@@ -8,6 +8,6 @@
 4. Open your repo folder, and run:
     - ```npm install discord.io winston –save.```
     - ```npm install https://github.com/woor/discord.io/tarball/gateway_v6```
-    - ```npm i markov-chain-nlg```
+    - ```npm i markov-strings```
 5. Run ```node bot.js``` inside your repo.
 6. Enjoy!
