@@ -46,6 +46,7 @@ bot.on('ready', function (evt) {
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
+
     if (message.substring(0,1) != '%') {
         allMessages.push(message);
     }
@@ -291,6 +292,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (message.substring(0, 22) == '%superSecretStopServer') {
+        bot.sendMessage({
+            to: channelID,
+            message: "leaving now"
+        });
         process.exit();
+    }
+
+    if (message.substring(0,8) == '%refresh') {
+        allMessages = [' '];
     }
 });
