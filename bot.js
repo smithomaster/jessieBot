@@ -48,10 +48,10 @@ bot.on('ready', function (evt) {
 bot.on('message', function (user, userID, channelID, message, evt) {
 
     if (message.substring(0,1) != '%') {
+        console.log(message);
         allMessages.push(message);
     }
     if (user == 'Crystal' && message != '%crystal') {
-        console.log(message);
         crystalMessages.push(message);
     }
 
@@ -150,7 +150,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (user == 'HelloCookieJar' && message.substring(0, 1) != '%jessie') {
-        console.log(message);
         jessieMessages.push(message);
     }
 
@@ -183,7 +182,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (user == '𝙨𝙤𝙥𝙝𝙞𝙖' && message != '%sophia') {
-        console.log(message);
         sophiaMessages.push(message);
     }
 
@@ -216,7 +214,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (user == 'owobble' && message != '%gabby') {
-        console.log(message);
         gabbyMessages.push(message);
     }
 
@@ -249,7 +246,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     if (user == 'LuiTheFly' && message != '%luin') {
-        console.log(message);
         luinMessages.push(message);
     }
 
