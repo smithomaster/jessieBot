@@ -72,7 +72,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovCrystal.generate (7)
+            message: markovCrystal.generate (10)
         });
     }
 
@@ -105,7 +105,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovTal.generate (7)
+            message: markovTal.generate (10)
         });
     }
 
@@ -138,7 +138,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovZhui.generate (7)
+            message: markovZhui.generate (10)
         });
     }
 
@@ -170,7 +170,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovJessie.generate (7)
+            message: markovJessie.generate (10)
         });
     }
 
@@ -202,7 +202,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovSophia.generate (7)
+            message: markovSophia.generate (10)
         });
     }
 
@@ -234,7 +234,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovGabby.generate (7)
+            message: markovGabby.generate (10)
         });
     }
 
@@ -266,7 +266,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovLuin.generate (7)
+            message: markovLuin.generate (10)
         });
     }
 
@@ -283,7 +283,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         bot.sendMessage({
             to: channelID,
-            message: markovAll.generate (7)
+            message: markovAll.generate (10)
         });
     }
 
